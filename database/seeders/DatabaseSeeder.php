@@ -39,10 +39,10 @@ class DatabaseSeeder extends Seeder
         DB::unprepared("TRUNCATE TABLE users");
         User::factory($cnt)->create();
         $data = [
-            ["admin@sample.jp", "システム管理者", "しすてむかんりしゃ", 999, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK'],
-            ["user1@sample.jp", "ユーザ１", "ゆーざ1", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK'],
-            ["user2@sample.jp", "ユーザ２", "ゆーざ2", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK'],
-            ["user3@sample.jp", "ユーザ３", "ゆーざ3", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK'],
+            ["admin@sample.jp", "システム管理者", "しすてむかんりしゃ", 999, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'],
+            ["user1@sample.jp", "ユーザ１", "ゆーざ1", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', NULL],
+            ["user2@sample.jp", "ユーザ２", "ゆーざ2", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', NULL],
+            ["user3@sample.jp", "ユーザ３", "ゆーざ3", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', NULL],
         ];
         $id = 1;
         foreach ($data as $d) {
@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder
             $user->name_kana = $d[2];
             $user->role = $d[3];
             $user->password = $d[4];
+            $user->profile_photo_path = $d[5];
             $user->save();
             $id++;
         }

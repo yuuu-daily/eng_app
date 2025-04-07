@@ -27,5 +27,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     // })->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     RouteHelper::setResourceRouteWithName('/admin/user', '\Admin\UserController');
+    RouteHelper::setResourceRouteWithName('/post', '\User\PostController');
     // Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
 });
