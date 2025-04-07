@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Services\UtilService;
-class UserController extends Controller
+
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +20,10 @@ class UserController extends Controller
         // if (Gate::allows('system-admin')) {
         //     return redirect()->route('admin.award.index');
         // }
-        UtilService::isAdmin();
+        // UtilService::isUser();
         $auth = Auth::user();
         $users = User::all();
-        return Inertia::render('Admin/User/Index', [
+        return Inertia::render('User/Post/Index', [
             'users' => $users
         ]);
     }
