@@ -184,6 +184,24 @@
   class="tiptap w-full rounded p-4 border focus-within:ring-2 focus-within:ring-blue-400 caret-blue-600"
 />
     </div>
+    <div class="mr-4 flex-shrink-0 mb-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <MyImageUploader :maxSize="8000" title="写真" :imgUrl="form.photo_url" v-model:imgFile="form.photo_file"/>
+            </div>
+            <div>
+                <InputLabel for="name" value="写真(申請)"/>
+                <img :src="form.photo_url_tmp">
+            </div>
+        </div>
+    </div>
+    <div>
+                <PrimaryButton class="mt-3 me-3" :class="{ 'opacity-25': form.processing }"
+                               :disabled="form.processing" @click="submit()">
+                    保存
+                </PrimaryButton>
+                <MyButtonGoBack :target="route('post.index')"/>
+            </div>
   </AppLayout>
 </template>
   
@@ -218,12 +236,20 @@
   // onBeforeUnmount(() => {
   //   editor.value?.destroy()
   // })
-  import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Highlight from '@tiptap/extension-highlight'
 import TextAlign from '@tiptap/extension-text-align'
 import AppLayout from '@/Layouts/User/AppLayout.vue'
+import MyImageUploader from "@/Components/Commons/MyImageUploader.vue"
+import {router, useForm, usePage} from '@inertiajs/vue3'
+import InputLabel from "@/Components/InputLabel.vue"
+import MyButtonGoBack from "@/Components/Commons/MyButtonGoBack.vue"
+import PrimaryButton from "@/Components/Commons/PrimaryButton.vue";
+
+const props = defineProps({});
+const auth = usePage().props.auth.user;
 
 const editor = ref(null)
 const showMenu = ref(false)
@@ -245,6 +271,59 @@ onMounted(() => {
     },
   })
 })
+
+const form = useForm({
+    id: 1,
+    photo_url: null,
+    photo_url_tmp: null,
+    photo_file: null,
+});
+
+function submit() {
+    if (form.photo_file) {
+        uploadFile(form.photo_file);
+    } else {
+        upd();
+    }
+}
+
+function uploadFile(file) {
+    let params = new URLSearchParams();
+    const ts = dayjs().format('YYMMDDHHmmss');
+    params.append('filename', 'j' + ts + '.' + file.name.split('.').pop()); //キャッシュ回避のため
+    params.append('dir', 'post/' + 1 + '/upload/');
+    params.append('type', file.type);
+    axios.post('/util/get_presignedurl', params).then(function (res1) {
+        const axiosOptions = {headers: {'Content-Type': file.type}};
+        if (res1.status === 200) {
+            axios.put(res1.data.preSignedUrl, file, axiosOptions).then(function (res2) {
+                form.photo_file = null; //用済み(これでいいか微妙)
+                // form.photo_url = res1.data.s3key; //更新するCDNのURL
+                form.photo_url = res1.data.preSignedUrl; //更新するCDNのURL
+                // console.log(res1.data.preSignedUrl);
+                upd();
+            }).catch(function (e) {
+                toaster.error('保存に失敗しました(2)');
+                console.log(e);
+            });
+        }
+    }).catch(function (e) {
+        toaster.error('保存に失敗しました(3)');
+        console.log(e);
+    });
+}
+
+const upd = () => {
+    form.patch(route('post.update', auth.id), {
+        onSuccess: () => {
+            toaster.success('保存しました');
+            router.visit('/post/create' );
+        },
+        onError: () => {
+            toaster.error('保存に失敗しました');
+        },
+    });
+};
 
 onBeforeUnmount(() => {
   editor.value?.destroy()

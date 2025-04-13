@@ -29,4 +29,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     RouteHelper::setResourceRouteWithName('/admin/user', '\Admin\UserController');
     RouteHelper::setResourceRouteWithName('/post', '\User\PostController');
     // Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+    //AWSで使うヤツなど
+    Route::post('/util/get_presignedurl', [\App\Http\Controllers\Api\UtilController::class, 'getPreSignedUrl'])->name('api.util.get_presignedurl');
 });

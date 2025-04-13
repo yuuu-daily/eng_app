@@ -66,9 +66,19 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, string $id)
     {
-        //
+        // UtilService::isUser();
+        $commonRules = [
+            'photo_url' => [],
+        ];
+        $validated = $request->validate($commonRules);
+        $user = User::find($id);
+        $user->profile_photo_path = $validated['photo_url'];
+        $user->save();
     }
 
     /**
