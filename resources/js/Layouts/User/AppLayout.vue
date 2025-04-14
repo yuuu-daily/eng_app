@@ -27,6 +27,11 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 import {router, useForm, usePage} from '@inertiajs/vue3';
 
+const props = defineProps({
+    title: String,
+    photo_url: null
+});
+
 const navigation = [
   { name: 'ダッシュボード', href: '#', icon: HomeIcon, current: true },
   { name: 'グループ', href: '#', icon: UsersIcon, current: false },
@@ -192,7 +197,7 @@ const logout = () => {
               <Menu as="div" class="relative">
                 <MenuButton class="-m-1.5 flex items-center p-1.5">
                   <span class="sr-only">Open user menu</span>
-                  <img class="size-8 rounded-full bg-gray-50" :src="$page.props.auth.user.profile_photo_path" alt="" />
+                  <img class="size-8 rounded-full bg-gray-50" :src="props.photo_url" alt="" />
                   <span class="hidden lg:flex lg:items-center">
                     <span class="ml-4 text-sm/6 font-semibold text-gray-900" aria-hidden="true">Tom Cook</span>
                     <ChevronDownIcon class="ml-2 size-5 text-gray-400" aria-hidden="true" />
