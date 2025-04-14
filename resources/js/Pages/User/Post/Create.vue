@@ -1,241 +1,4 @@
-<template>
-    <!-- <AppLayout>
-    <div v-if="editor" class="container">
-      <div class="control-group">
-        <div class="button-group">
-            <div class="button-group flex flex-wrap gap-2 mb-4">
-  <button
-    @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
-    :class="[
-      editor.isActive('heading', { level: 1 }) ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-      'px-3 py-1 border rounded transition-all'
-    ]"
-  >
-    H1
-  </button>
-
-  <button
-    @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-    :class="[
-      editor.isActive('heading', { level: 2 }) ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-      'px-3 py-1 border rounded transition-all'
-    ]"
-  >
-    H2
-  </button>
-
-  <button
-    @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
-    :class="[
-      editor.isActive('heading', { level: 3 }) ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-      'px-3 py-1 border rounded transition-all'
-    ]"
-  >
-    H3
-  </button>
-
-  <button
-    @click="editor.chain().focus().setParagraph().run()"
-    :class="[
-      editor.isActive('paragraph') ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-      'px-3 py-1 border rounded transition-all'
-    ]"
-  >
-    Paragraph
-  </button>
-
-  <button
-    @click="editor.chain().focus().toggleBold().run()"
-    :class="[
-      editor.isActive('bold') ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-      'px-3 py-1 border rounded transition-all'
-    ]"
-  >
-    太字
-  </button>
-
-  <button
-    @click="editor.chain().focus().toggleItalic().run()"
-    :class="[
-      editor.isActive('italic') ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-      'px-3 py-1 border rounded transition-all'
-    ]"
-  >
-    Italic
-  </button>
-
-  <button
-    @click="editor.chain().focus().toggleStrike().run()"
-    :class="[
-      editor.isActive('strike') ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-      'px-3 py-1 border rounded transition-all'
-    ]"
-  >
-    取り消し線
-  </button>
-
-  <button
-    @click="editor.chain().focus().toggleHighlight().run()"
-    :class="[
-      editor.isActive('highlight') ? 'bg-yellow-400 text-black border-yellow-400' : 'bg-gray-100 text-black',
-      'px-3 py-1 border rounded transition-all'
-    ]"
-  >
-    Highlight
-  </button>
-  <button
-  @click="editor.chain().focus().toggleOrderedList().run()"
-  :class="[
-    editor.isActive('orderedList') ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-    'px-3 py-1 border rounded transition-all'
-  ]"
->
-  Ordered list
-</button>
-
-<button
-  @click="editor.chain().focus().toggleCodeBlock().run()"
-  :class="[
-    editor.isActive('codeBlock') ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-    'px-3 py-1 border rounded transition-all'
-  ]"
->
-  Code block
-</button>
-
-<button
-  @click="editor.chain().focus().toggleBlockquote().run()"
-  :class="[
-    editor.isActive('blockquote') ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-black',
-    'px-3 py-1 border rounded transition-all'
-  ]"
->
-  Blockquote
-</button>
-
-<button
-  @click="editor.chain().focus().setHorizontalRule().run()"
-  class="bg-gray-100 text-black px-3 py-1 border rounded transition-all"
->
-  Horizontal rule
-</button>
-
-</div>
-
-        </div>
-      </div>
-      <editor-content :editor="editor" class="border rounded tiptap prose"/>
-    </div>
-    </AppLayout> -->
-    <AppLayout>
-    <div v-if="editor" class="container p-4">
-      <!-- Toolbar -->
-      <div class="flex gap-2 mb-4">
-        <button @click="showMenu = !showMenu" class="px-2 py-1 border rounded hover:bg-gray-100">
-          ＋
-        </button>
-
-        <!-- ポップアップメニュー -->
-        <div
-          v-if="showMenu"
-          class="absolute z-10 mt-10 w-48 bg-white border rounded shadow-lg"
-        >
-          <ul class="text-sm">
-            <li>
-              <button @click="setBlock('heading', { level: 1 })" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-                H1
-              </button>
-            </li>
-            <li>
-              <button @click="setBlock('heading', { level: 2 })" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-                H2
-              </button>
-            </li>
-            <li>
-              <button @click="setBlock('highlight')" class="block w-full text-left px-4 py-2 hover:bg-yellow-100">Highlight</button>
-            </li>
-            <li>
-              <button @click="setBlock('orderedList')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-                Ordered List
-              </button>
-            </li>
-            <li>
-              <button @click="setBlock('codeBlock')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-                Code Block
-              </button>
-            </li>
-            <li>
-              <button @click="setBlock('blockquote')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-                Blockquote
-              </button>
-            </li>
-            <li>
-              <button @click="setBlock('horizontalRule')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-                Divider
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- エディタ -->
-      <editor-content
-  :editor="editor"
-  class="tiptap w-full rounded p-4 border focus-within:ring-2 focus-within:ring-blue-400 caret-blue-600"
-/>
-    </div>
-    <div class="mr-4 flex-shrink-0 mb-4">
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <MyImageUploader :maxSize="8000" title="写真" :imgUrl="form.photo_url" v-model:imgFile="form.photo_file"/>
-            </div>
-            <div>
-                <InputLabel for="name" value="写真(申請)"/>
-                <img :src="form.photo_url_tmp">
-            </div>
-        </div>
-    </div>
-    <div>
-                <PrimaryButton class="mt-3 me-3" :class="{ 'opacity-25': form.processing }"
-                               :disabled="form.processing" @click="submit()">
-                    保存
-                </PrimaryButton>
-                <MyButtonGoBack :target="route('post.index')"/>
-            </div>
-  </AppLayout>
-</template>
-  
 <script setup>
-  // import { ref, onMounted, onBeforeUnmount } from 'vue'
-  // import { Editor, EditorContent } from '@tiptap/vue-3'
-  // import StarterKit from '@tiptap/starter-kit'
-  // import Highlight from '@tiptap/extension-highlight'
-  // import TextAlign from '@tiptap/extension-text-align'
-  // import AppLayout from '@/Layouts/User/AppLayout.vue'
-
-  // const editor = ref(null)
-  
-  // onMounted(() => {
-  //   editor.value = new Editor({
-  //     extensions: [
-  //       StarterKit,
-  //       Highlight,
-  //       TextAlign.configure({
-  //         types: ['heading', 'paragraph'],
-  //       }),
-  //     ],
-  //     content: '',
-  //     editorProps: {
-  //       attributes: {
-  //           class: 'tiptap',
-  //       },
-  //     },
-  //   })
-  // })
-  
-  // onBeforeUnmount(() => {
-  //   editor.value?.destroy()
-  // })
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
@@ -248,9 +11,12 @@ import InputLabel from "@/Components/InputLabel.vue"
 import MyButtonGoBack from "@/Components/Commons/MyButtonGoBack.vue"
 import PrimaryButton from "@/Components/Commons/PrimaryButton.vue";
 
-const props = defineProps({});
+const props = defineProps({
+    photo_url: null,
+    short_url: null
+});
 const auth = usePage().props.auth.user;
-
+console.log(props.short_url);
 const editor = ref(null)
 const showMenu = ref(false)
 
@@ -357,85 +123,99 @@ function setBlock(type, options = {}) {
 
   showMenu.value = false
 }
+
+function openFile(url) {
+    window.open(url, '_blank');
+}
 </script>
 
-<!-- <style scoped>
-/* List styles */
-::v-deep(.tiptap p) {
-  line-height: 1.5 !important;
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
+<template>
+    <AppLayout :photo_url="props.photo_url">
+    <div v-if="editor" class="container p-4">
+      <!-- Toolbar -->
+      <div class="flex gap-2 mb-4">
+        <button @click="showMenu = !showMenu" class="px-2 py-1 border rounded hover:bg-gray-100">
+          ＋
+        </button>
 
-::v-deep(.tiptap h1) {
-  line-height: 1.2;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  font-size: 1.5rem;
-}
+        <!-- ポップアップメニュー -->
+        <div
+          v-if="showMenu"
+          class="absolute z-10 mt-10 w-48 bg-white border rounded shadow-lg"
+        >
+          <ul class="text-sm">
+            <li>
+              <button @click="setBlock('heading', { level: 1 })" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                H1
+              </button>
+            </li>
+            <li>
+              <button @click="setBlock('heading', { level: 2 })" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                H2
+              </button>
+            </li>
+            <li>
+              <button @click="setBlock('highlight')" class="block w-full text-left px-4 py-2 hover:bg-yellow-100">Highlight</button>
+            </li>
+            <li>
+              <button @click="setBlock('orderedList')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                Ordered List
+              </button>
+            </li>
+            <li>
+              <button @click="setBlock('codeBlock')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                Code Block
+              </button>
+            </li>
+            <li>
+              <button @click="setBlock('blockquote')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                Blockquote
+              </button>
+            </li>
+            <li>
+              <button @click="setBlock('horizontalRule')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                Divider
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-::v-deep(.tiptap h2) {
-  line-height: 1.2;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  font-size: 1.25rem;
-}
+      <!-- エディタ -->
+      <editor-content
+  :editor="editor"
+  class="tiptap w-full rounded p-4 border focus-within:ring-2 focus-within:ring-blue-400 caret-blue-600"
+/>
+    </div>
+    <div class="mr-4 flex-shrink-0 mb-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <MyImageUploader :maxSize="8000" title="写真" :imgUrl="form.photo_url" v-model:imgFile="form.photo_file"/>
+            </div>
+            <div>
+                <InputLabel for="name" value="写真(申請)"/>
+                
+                <img :src="form.photo_url_tmp">
+            </div>
+            <div v-if="props.photo_url" class="py-2 px-6 w-full link-primary">
+                    <span
+                        @click="openFile(props.photo_url)"
+                        class="cursor-pointer text-blue-600 hover:underline"
+                    >{{ props.short_url }}</span>
+            </div>
+        </div>
+    </div>
+    <div>
+                <PrimaryButton class="mt-3 me-3" :class="{ 'opacity-25': form.processing }"
+                               :disabled="form.processing" @click="submit()">
+                    保存
+                </PrimaryButton>
+                <MyButtonGoBack :target="route('post.index')"/>
+            </div>
+  </AppLayout>
+</template>
+  
 
-::v-deep(.tiptap ul),
-::v-deep(.tiptap ol) {
-  margin: 0.75rem 0;
-  padding-left: 1.25rem;
-  line-height: 1.5;
-}
-
-/* 通常のインライン code */
-::v-deep(.tiptap code) {
-  background-color: var(--purple-light);
-  border-radius: 0.4rem;
-  color: var(--black);
-  font-size: 0.85rem;
-  padding: 0.25em 0.3em;
-}
-
-/* コードブロック（codeBlock） */
-::v-deep(.tiptap pre) {
-  background-color: #1e293b;
-  color: #f8fafc;
-  border-radius: 0.5rem;
-  font-family: 'JetBrainsMono', monospace;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  padding: 1rem;
-  margin: 1.5rem 0;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  tab-size: 2;
-  text-indent: 0;
-}
-
-::v-deep(.tiptap pre code) {
-  background: none;
-  color: inherit;
-  padding: 0;
-  font-size: inherit;
-}
-
-/* blockquote */
-::v-deep(.tiptap blockquote) {
-  quotes: none;
-  border-left: 4px solid #cbd5e1;
-  padding-left: 1rem;
-  margin: 1.5rem 0;
-  color: #475569;
-  font-style: italic;
-  background-color: #f8fafc;
-}
-
-::v-deep(.tiptap blockquote::before),
-::v-deep(.tiptap blockquote::after) {
-  content: none;
-}
-</style> -->
 <style scoped>
 /* 見出し */
 ::v-deep(.tiptap h1) {

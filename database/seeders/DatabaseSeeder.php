@@ -26,6 +26,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $debug = env('APP_DEBUG', false);
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    
+        // テーブルを安全に空にする
+        \App\Models\Post::truncate();
+        \App\Models\User::truncate();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         if ($debug) {
             $cnt = 12;
             $this->CreateUsers($cnt);
@@ -36,7 +44,7 @@ class DatabaseSeeder extends Seeder
 
     private function CreateUsers($cnt)
     {
-        DB::unprepared("TRUNCATE TABLE users");
+        // DB::unprepared("TRUNCATE TABLE users");
         User::factory($cnt)->create();
         $data = [
             ["admin@sample.jp", "システム管理者", "しすてむかんりしゃ", 999, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'],

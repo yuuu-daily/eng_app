@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Services\UtilService;
+use App\Services\AwsService;
 
 class PostController extends Controller
 {
@@ -33,7 +34,19 @@ class PostController extends Controller
      */
     public function create()
     {
+        $auth = Auth::user();
+        $parsed = parse_url($auth->profile_photo_path, PHP_URL_PATH);
+        $s3key = ltrim($parsed, '/');
+        $bucket = 'yuuu-cdn';
+        $photo_url = AwsService::getSignedUrlFromKey($s3key, $bucket);
+        $short_url = preg_replace(
+            '/^.+\/([^\/\?]+)(\?.*)?$/',
+            '$1',
+            $photo_url
+        );
         return Inertia::render('User/Post/Create', [
+            'photo_url' => $photo_url,
+            'short_url' => $short_url
         ]);
     }
 
