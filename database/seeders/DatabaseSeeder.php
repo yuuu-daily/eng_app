@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             $cnt = 12;
             $this->CreateUsers($cnt);
         }
-        // $this->CreateSeeds($debug);
+        $this->CreateSeeds($debug);
     }
 
 
@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         User::factory($cnt)->create();
         $data = [
             ["admin@sample.jp", "システム管理者", "しすてむかんりしゃ", 999, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'],
-            ["user1@sample.jp", "ユーザ１", "ゆーざ1", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', NULL],
+            ["user1@sample.jp", "ユーザ１", "ゆーざ1", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', 'https://yuuu-cdn.s3.ap-northeast-1.amazonaws.com/d_tanino/post/1/upload/j250420131923.jpg?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ6FY7VQDNTSJE2XJ%2F20250420%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20250420T041923Z&X-Amz-SignedHeaders=host&X-Amz-Expires=1200&X-Amz-Signature=7c8fd0be8c0cb9e5b2b01e9da239c192cad238f58cb880e1c9bf77a00050607f'],
             ["user2@sample.jp", "ユーザ２", "ゆーざ2", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', NULL],
             ["user3@sample.jp", "ユーザ３", "ゆーざ3", 0, '$2y$12$UYS4FUuk3JE.CzyF54V7KeFkW9gNi1kzjfFLbj/aemYiTXU3Q0QFK', NULL],
         ];

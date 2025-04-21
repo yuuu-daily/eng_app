@@ -9,10 +9,9 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import MyImageUploader from "@/Components/Commons/MyImageUploader.vue";
 
 const props = defineProps({
-    // requiresConfirmation: Boolean,
+    requiresConfirmation: Boolean,
 });
 
 const page = usePage();
@@ -103,73 +102,16 @@ const disableTwoFactorAuthentication = () => {
         },
     });
 };
-
-function openFile(url) {
-    window.open(url, '_blank');
-}
-
-const form = useForm({
-    id: 1,
-    photo_url: null,
-    photo_url_tmp: null,
-    photo_file: null,
-});
-
-function submit() {
-    if (form.photo_file) {
-        uploadFile(form.photo_file);
-    } else {
-        upd();
-    }
-}
-
-function uploadFile(file) {
-    let params = new URLSearchParams();
-    const ts = dayjs().format('YYMMDDHHmmss');
-    params.append('filename', 'j' + ts + '.' + file.name.split('.').pop()); //キャッシュ回避のため
-    params.append('dir', 'post/' + 1 + '/upload/');
-    params.append('type', file.type);
-    axios.post('/util/get_presignedurl', params).then(function (res1) {
-        const axiosOptions = {headers: {'Content-Type': file.type}};
-        if (res1.status === 200) {
-            axios.put(res1.data.preSignedUrl, file, axiosOptions).then(function (res2) {
-                form.photo_file = null; //用済み(これでいいか微妙)
-                // form.photo_url = res1.data.s3key; //更新するCDNのURL
-                form.photo_url = res1.data.preSignedUrl; //更新するCDNのURL
-                // console.log(res1.data.preSignedUrl);
-                upd();
-            }).catch(function (e) {
-                toaster.error('保存に失敗しました(2)');
-                console.log(e);
-            });
-        }
-    }).catch(function (e) {
-        toaster.error('保存に失敗しました(3)');
-        console.log(e);
-    });
-}
-
-const upd = () => {
-    form.patch(route('post.update', auth.id), {
-        onSuccess: () => {
-            toaster.success('保存しました');
-            router.visit('/post/create' );
-        },
-        onError: () => {
-            toaster.error('保存に失敗しました');
-        },
-    });
-};
 </script>
 
 <template>
     <ActionSection>
         <template #title>
-            プロフィール写真の変更
+            Two Factor Authentication
         </template>
 
         <template #description>
-            プロフィール写真をアップロードして写真を変更することができます。
+            Add additional security to your account using two factor authentication.
         </template>
 
         <template #content>
@@ -244,22 +186,8 @@ const upd = () => {
                     </div>
                 </div>
             </div>
-            <div class="mr-4 flex-shrink-0 mb-4">
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <!-- <MyImageUploader :maxSize="8000" title="写真" :imgUrl="form.photo_url" v-model:imgFile="form.photo_file"/> -->
-                    <MyImageUploader :maxSize="8000" title="写真" v-model:imgFile="form.photo_file"/>
-                </div>
-                <!-- <div v-if="props.photo_url" class="py-2 px-6 w-full link-primary">
-                    <span
-                        @click="openFile(props.photo_url)"
-                        class="cursor-pointer text-blue-600 hover:underline"
-                    >{{ props.short_url }}</span>
-                </div> -->
-            </div>
-            </div>
 
-            <!-- <div class="mt-5">
+            <div class="mt-5">
                 <div v-if="! twoFactorEnabled">
                     <ConfirmsPassword @confirmed="enableTwoFactorAuthentication">
                         <PrimaryButton type="button" :class="{ 'opacity-25': enabling }" :disabled="enabling">
@@ -319,13 +247,6 @@ const upd = () => {
                         </DangerButton>
                     </ConfirmsPassword>
                 </div>
-            </div> -->
-            <div>
-                <PrimaryButton class="mt-3 me-3" :class="{ 'opacity-25': form.processing }"
-                               :disabled="form.processing" @click="submit()">
-                    保存
-                </PrimaryButton>
-                <MyButtonGoBack :target="route('post.index')"/>
             </div>
         </template>
     </ActionSection>

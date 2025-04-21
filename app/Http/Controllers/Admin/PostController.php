@@ -10,7 +10,7 @@ use App\Models\User;
 use Inertia\Inertia;
 use App\Services\UtilService;
 
-class UserController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
