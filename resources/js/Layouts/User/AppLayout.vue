@@ -33,12 +33,12 @@ const props = defineProps({
 });
 
 const navigation = [
-  { name: 'ダッシュボード', href: '#', icon: HomeIcon, current: true },
+  { name: '記事一覧', href: '#', icon: HomeIcon, current: true },
   { name: 'グループ', href: '#', icon: UsersIcon, current: false },
   { name: 'プロジェクト', href: '#', icon: FolderIcon, current: false },
   { name: 'イベント', href: '#', icon: CalendarIcon, current: false },
-  { name: 'ナレッジ', href: '#', icon: DocumentDuplicateIcon, current: false },
-  { name: 'レポート', href: '#', icon: ChartPieIcon, current: false },
+  // { name: 'ナレッジ', href: '#', icon: DocumentDuplicateIcon, current: false },
+  // { name: 'レポート', href: '#', icon: ChartPieIcon, current: false },
 ]
 const teams = [
   { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
@@ -46,14 +46,13 @@ const teams = [
   { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
 ]
 const userNavigation = [
-  { id: 1, name: 'プロフィール設定', href: '#' },
-  { id: 2, name: 'サインアウト', href: '#' },
+  { id: 1, name: 'プロフィール設定', href: '/user/profile' },
+  { id: 2, name: 'サインアウト', href: '/logout' },
 ]
 
-const sidebarOpen = ref(false)
+const sidebarOpen = ref(false);
 
 const auth = ref(usePage().props.auth.user);
-console.log(auth);
 const logout = () => {
   router.post(route('logout'))
 }
@@ -88,7 +87,7 @@ const logout = () => {
               <!-- Sidebar component, swap this element with another sidebar if you like -->
               <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
                 <div class="flex h-16 shrink-0 items-center">
-                  <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+                  <img class="h-10 w-auto" src="/images/favicon.png" alt="Your Company" />
                 </div>
                 <nav class="flex flex-1 flex-col">
                   <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -133,7 +132,7 @@ const logout = () => {
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
         <div class="flex h-16 shrink-0 items-center">
-          <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+          <img class="h-10 w-auto" src="/images/favicon.png" alt="Your Company" />
         </div>
         <nav class="flex flex-1 flex-col">
           <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -233,8 +232,8 @@ const logout = () => {
         </div>
       </div>
 
-      <main class="py-10">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <main class="py-10 bg-yellow-50">
+        <div class="mx-auto max-w-7xl px-4 bg-yellow-50 sm:px-6 lg:px-8">
           
             <main class="mx-auto max-w-screen-2xl px-6 py-0 lg:px-8 min-h-screen" style="min-height: calc(100vh - 153px)">
                 <slot />

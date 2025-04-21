@@ -82,13 +82,13 @@ watch(() => props.imgUrl, (newUrl) => {
 </script>
 
 <template>
-    <div class="mb-5">
+    <div class="my-5">
         <InputLabel for="name" :value="title"/>
-        <div v-if="imgUrl" class="relative my-4 flex-1 w-64 overflow-hidden">
+        <!-- <div v-if="imgUrl" class="relative my-4 flex-1 w-64 overflow-hidden">
             <img :src="imgUrl" :style="imgStyle" class="shadow bg-gray-100 border-2 p-1" alt="">
-        </div>
+        </div> -->
         <input type="file" ref="fileInput" :name="'img_url'" @change="onFileChange"
-               class="block w-full text-sm text-slate-500
+               class="my-3 block w-full text-sm text-slate-500
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold

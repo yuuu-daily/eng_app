@@ -29,28 +29,36 @@ defineProps({
                     <SectionBorder />
                 </div>
 
-                <div v-if="$page.props.jetstream.canUpdatePassword">
-                    <UpdatePasswordForm class="mt-10 sm:mt-0" />
-
-                    <SectionBorder />
-                </div>
-
-                <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
+                <div>
                     <TwoFactorAuthenticationForm
-                        :requires-confirmation="confirmsTwoFactorAuthentication"
                         class="mt-10 sm:mt-0"
                     />
 
                     <SectionBorder />
                 </div>
 
-                <LogoutOtherBrowserSessionsForm :sessions="sessions" class="mt-10 sm:mt-0" />
+                <div v-if="$page.props.jetstream.canUpdatePassword">
+                    <UpdatePasswordForm class="mt-10 sm:mt-0" />
 
-                <template v-if="$page.props.jetstream.hasAccountDeletionFeatures">
+                    <SectionBorder />
+                </div>
+
+                <!-- <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
+                    <TwoFactorAuthenticationForm
+                        :requires-confirmation="confirmsTwoFactorAuthentication"
+                        class="mt-10 sm:mt-0"
+                    />
+
+                    <SectionBorder />
+                </div> -->
+
+                <!-- <LogoutOtherBrowserSessionsForm :sessions="sessions" class="mt-10 sm:mt-0" /> -->
+
+                <!-- <template v-if="$page.props.jetstream.hasAccountDeletionFeatures">
                     <SectionBorder />
 
                     <DeleteUserForm class="mt-10 sm:mt-0" />
-                </template>
+                </template> -->
             </div>
         </div>
     </AppLayout>

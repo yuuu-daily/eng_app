@@ -27,7 +27,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     // })->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     RouteHelper::setResourceRouteWithName('/admin/user', '\Admin\UserController');
+    RouteHelper::setResourceRouteWithName('/admin/post', '\Admin\PostController');
+    RouteHelper::setResourceRouteWithName('/admin/group', '\Admin\GroupController');
+    RouteHelper::setResourceRouteWithName('/admin/category', '\Admin\CategoryController');
+    RouteHelper::setResourceRouteWithName('/admin/event', '\Admin\EventController');
     RouteHelper::setResourceRouteWithName('/post', '\User\PostController');
+    RouteHelper::setResourceRouteWithName('/event', '\User\EventController');
     // Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     //AWSで使うヤツなど
     Route::post('/util/get_presignedurl', [\App\Http\Controllers\Api\UtilController::class, 'getPreSignedUrl'])->name('api.util.get_presignedurl');
