@@ -23,8 +23,10 @@ class PostController extends Controller
         UtilService::isAdmin();
         $auth = Auth::user();
         $users = User::all();
+        $posts = Post::all();
         return Inertia::render('Admin/User/Index', [
-            'users' => $users
+            'users' => $users,
+            'posts' => $posts
         ]);
     }
 

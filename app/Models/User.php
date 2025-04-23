@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Services\AwsService;
 
 class User extends Authenticatable
 {
@@ -81,5 +82,16 @@ class User extends Authenticatable
     public function bookmarkedPosts()
     {
         return $this->belongsToMany(Post::class, 'post_bookmarks')->withTimestamps();
+    }
+
+    public function getProfilePhotoPathAttribute($value)
+    {
+        if (!$value) return null;
+
+        $parsed = parse_url($value, PHP_URL_PATH);
+        $s3key = ltrim($parsed, '/');
+        $bucket = 'yuuu-cdn';
+
+        return AwsService::getSignedUrlFromKey($s3key, $bucket);
     }
 }
