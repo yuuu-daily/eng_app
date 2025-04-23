@@ -13,6 +13,7 @@ use App\Models\CategoryPost;
 use Inertia\Inertia;
 use App\Services\UtilService;
 use App\Services\AwsService;
+use App\Repositories\PostRepository;
 
 class PostController extends Controller
 {
@@ -27,8 +28,18 @@ class PostController extends Controller
         // UtilService::isUser();
         $auth = Auth::user();
         $users = User::all();
+        $posts = PostRepository::gets();
+        foreach ($posts as &$post) {
+            if (!empty($post->profile_photo_path)) {
+                $parsed = parse_url($post->profile_photo_path, PHP_URL_PATH);
+                $s3key = ltrim($parsed, '/');
+                $bucket = 'yuuu-cdn';
+                $post->profile_photo_path = AwsService::getSignedUrlFromKey($s3key, $bucket);
+            }
+        } 
         return Inertia::render('User/Post/Index', [
-            'users' => $users
+            'users' => $users,
+            'posts' => $posts
         ]);
     }
 
@@ -89,7 +100,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Inertia::render('User/Post/Show', [
+        ]);
     }
 
     /**
