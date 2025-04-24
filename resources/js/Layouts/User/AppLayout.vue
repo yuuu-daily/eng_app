@@ -33,8 +33,8 @@ const props = defineProps({
 });
 
 const navigation = [
-  { name: '記事一覧', href: '#', icon: HomeIcon, current: true },
-  { name: 'グループ', href: '#', icon: UsersIcon, current: false },
+  { name: '記事一覧', href: '/post', icon: HomeIcon, current: true },
+  { name: 'グループ', href: '/post', icon: UsersIcon, current: false },
   { name: 'プロジェクト', href: '#', icon: FolderIcon, current: false },
   { name: 'イベント', href: '#', icon: CalendarIcon, current: false },
   // { name: 'ナレッジ', href: '#', icon: DocumentDuplicateIcon, current: false },

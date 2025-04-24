@@ -100,7 +100,15 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
+        $post = PostRepository::findPost($id);
+        if (!empty($post->profile_photo_path)) {
+            $parsed = parse_url($post->profile_photo_path, PHP_URL_PATH);
+            $s3key = ltrim($parsed, '/');
+            $bucket = 'yuuu-cdn';
+            $post->profile_photo_path = AwsService::getSignedUrlFromKey($s3key, $bucket);
+        }
         return Inertia::render('User/Post/Show', [
+            'post' => $post
         ]);
     }
 
