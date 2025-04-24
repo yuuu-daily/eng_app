@@ -27,4 +27,28 @@ GROUP BY p.id
 EOS;
         return DB::select($sql, []);
     }
+
+	static function findPost($id)
+	{
+		// $user = [];
+        $sql = <<< EOS
+SELECT
+	p.*,
+	u.profile_photo_path,
+	u.NAME AS user_name,
+	u.role,
+	GROUP_CONCAT( c.NAME ORDER BY c.NAME SEPARATOR ', ' ) AS category_names 
+FROM
+	posts AS p
+	INNER JOIN category_posts AS cap ON cap.post_id = p.id
+	INNER JOIN categories AS c ON c.id = cap.category_id
+	INNER JOIN users AS u ON u.id = p.user_id 
+WHERE
+	p.id = ?
+GROUP BY
+	p.id
+EOS;
+        $results = DB::select($sql, [$id]);
+		return $results[0];
+	}
 }
