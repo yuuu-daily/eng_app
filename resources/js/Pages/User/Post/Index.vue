@@ -1,18 +1,18 @@
 <template>
     <AppLayout>
-      <div class="flex justify-end mx-auto max-w-5xl lg:mx-0 mb-4">
-        <Link :href="route('post.create')" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150">
+      <div class="flex justify-end mx-auto max-w-8xl lg:mx-0 mb-4">
+        <Link :href="route('user.post.create')" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150">
                 New Post
         </Link>
       </div>
         <div class="my-panel">
             <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-pretty text-2xl font-semibold tracking-tight text-gray-900 sm:text-5xl">記事一覧</h2>
-                    <p class="mt-2 text-lg/8 text-gray-600">ナレッジ・ノウハウをアウトプットで貯めていき共有していく。</p>
+                <h2 class="text-pretty text-lg font-semibold tracking-tight text-gray-900 sm:text-md">記事一覧</h2>
+                    <p class="mt-2 text-sm text-gray-600">ナレッジ・ノウハウをアウトプットで貯めていき共有していきます。ここでは、主に自分自身のトレーニングを通して、学んだこと・感じたことを、書き残していこうと思っています。</p>
             </div>
             <div class="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           <article v-for="post in posts" :key="post.id" class="my-3 mx-2 flex max-w-3xl flex-col items-start justify-between">
-            <Link :href="route('post.show', post.id)" class="my-panel cursor-pointer">
+            <Link :href="route('user.post.show', post.id)" class="my-panel cursor-pointer">
             <div class="flex items-center gap-x-4 text-xs">
               <time :datetime="post.update_at" class="text-gray-500">{{ myutils.getDateStr2(post.updated_at) }}</time>
 
@@ -50,7 +50,7 @@
         </div>
     </AppLayout>
   </template>
-  
+
   <script setup>
   import AppLayout from '@/Layouts/User/AppLayout.vue';
   import {Link, usePage} from "@inertiajs/vue3";

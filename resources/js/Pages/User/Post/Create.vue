@@ -89,7 +89,7 @@ function submit() {
 // }
 
 const upd = () => {
-    form.post(route('post.store'), {
+    form.post(route('user.post.store'), {
         onSuccess: () => {
             toaster.success('保存しました');
             router.visit('/post' );
@@ -226,7 +226,7 @@ function updateSelectedCategories(val) {
             </div>
             <div>
                 <InputLabel for="name" value="写真(申請)"/>
-                
+
                 <img :src="form.photo_url_tmp">
             </div>
             <div v-if="props.photo_url" class="py-2 px-6 w-full link-primary">
@@ -242,12 +242,12 @@ function updateSelectedCategories(val) {
                           :disabled="form.processing" @click="submit()">
               保存
           </PrimaryButton>
-          <MyButtonGoBack :target="route('post.index')"/>
+          <MyButtonGoBack :target="route('user.post.index')"/>
       </div>
     </div>
   </AppLayout>
 </template>
-  
+
 
 <style scoped>
 /* 見出し */

@@ -118,9 +118,10 @@ const form = useForm({
 function submit() {
     if (form.photo_file) {
         uploadFile(form.photo_file);
-    } else {
-        upd();
     }
+    // } else {
+    //     upd();
+    // }
 }
 
 function uploadFile(file) {
@@ -150,10 +151,10 @@ function uploadFile(file) {
 }
 
 const upd = () => {
-    form.patch(route('post.update', auth.id), {
+    form.patch(route('user.setting.update', auth.id), {
         onSuccess: () => {
             toaster.success('保存しました');
-            router.visit('/post/create' );
+            router.visit('/user/profile' );
         },
         onError: () => {
             toaster.error('保存に失敗しました');
@@ -173,83 +174,83 @@ const upd = () => {
         </template>
 
         <template #content>
-            <h3 v-if="twoFactorEnabled && ! confirming" class="text-lg font-medium text-gray-900">
-                You have enabled two factor authentication.
-            </h3>
+<!--            <h3 v-if="twoFactorEnabled && ! confirming" class="text-lg font-medium text-gray-900">-->
+<!--                You have enabled two factor authentication.-->
+<!--            </h3>-->
 
-            <h3 v-else-if="twoFactorEnabled && confirming" class="text-lg font-medium text-gray-900">
-                Finish enabling two factor authentication.
-            </h3>
+<!--            <h3 v-else-if="twoFactorEnabled && confirming" class="text-lg font-medium text-gray-900">-->
+<!--                Finish enabling two factor authentication.-->
+<!--            </h3>-->
 
-            <h3 v-else class="text-lg font-medium text-gray-900">
-                You have not enabled two factor authentication.
-            </h3>
+<!--            <h3 v-else class="text-lg font-medium text-gray-900">-->
+<!--                You have not enabled two factor authentication.-->
+<!--            </h3>-->
 
-            <div class="mt-3 max-w-xl text-sm text-gray-600">
-                <p>
-                    When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's Google Authenticator application.
-                </p>
-            </div>
+<!--            <div class="mt-3 max-w-xl text-sm text-gray-600">-->
+<!--                <p>-->
+<!--                    When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's Google Authenticator application.-->
+<!--                </p>-->
+<!--            </div>-->
 
-            <div v-if="twoFactorEnabled">
-                <div v-if="qrCode">
-                    <div class="mt-4 max-w-xl text-sm text-gray-600">
-                        <p v-if="confirming" class="font-semibold">
-                            To finish enabling two factor authentication, scan the following QR code using your phone's authenticator application or enter the setup key and provide the generated OTP code.
-                        </p>
+<!--            <div v-if="twoFactorEnabled">-->
+<!--                <div v-if="qrCode">-->
+<!--                    <div class="mt-4 max-w-xl text-sm text-gray-600">-->
+<!--                        <p v-if="confirming" class="font-semibold">-->
+<!--                            To finish enabling two factor authentication, scan the following QR code using your phone's authenticator application or enter the setup key and provide the generated OTP code.-->
+<!--                        </p>-->
 
-                        <p v-else>
-                            Two factor authentication is now enabled. Scan the following QR code using your phone's authenticator application or enter the setup key.
-                        </p>
-                    </div>
+<!--                        <p v-else>-->
+<!--                            Two factor authentication is now enabled. Scan the following QR code using your phone's authenticator application or enter the setup key.-->
+<!--                        </p>-->
+<!--                    </div>-->
 
-                    <div class="mt-4 p-2 inline-block bg-white" v-html="qrCode" />
+<!--                    <div class="mt-4 p-2 inline-block bg-white" v-html="qrCode" />-->
 
-                    <div v-if="setupKey" class="mt-4 max-w-xl text-sm text-gray-600">
-                        <p class="font-semibold">
-                            Setup Key: <span v-html="setupKey"></span>
-                        </p>
-                    </div>
+<!--                    <div v-if="setupKey" class="mt-4 max-w-xl text-sm text-gray-600">-->
+<!--                        <p class="font-semibold">-->
+<!--                            Setup Key: <span v-html="setupKey"></span>-->
+<!--                        </p>-->
+<!--                    </div>-->
 
-                    <div v-if="confirming" class="mt-4">
-                        <InputLabel for="code" value="Code" />
+<!--                    <div v-if="confirming" class="mt-4">-->
+<!--                        <InputLabel for="code" value="Code" />-->
 
-                        <TextInput
-                            id="code"
-                            v-model="confirmationForm.code"
-                            type="text"
-                            name="code"
-                            class="block mt-1 w-1/2"
-                            inputmode="numeric"
-                            autofocus
-                            autocomplete="one-time-code"
-                            @keyup.enter="confirmTwoFactorAuthentication"
-                        />
+<!--                        <TextInput-->
+<!--                            id="code"-->
+<!--                            v-model="confirmationForm.code"-->
+<!--                            type="text"-->
+<!--                            name="code"-->
+<!--                            class="block mt-1 w-1/2"-->
+<!--                            inputmode="numeric"-->
+<!--                            autofocus-->
+<!--                            autocomplete="one-time-code"-->
+<!--                            @keyup.enter="confirmTwoFactorAuthentication"-->
+<!--                        />-->
 
-                        <InputError :message="confirmationForm.errors.code" class="mt-2" />
-                    </div>
-                </div>
+<!--                        <InputError :message="confirmationForm.errors.code" class="mt-2" />-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <div v-if="recoveryCodes.length > 0 && ! confirming">
-                    <div class="mt-4 max-w-xl text-sm text-gray-600">
-                        <p class="font-semibold">
-                            Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.
-                        </p>
-                    </div>
+<!--                <div v-if="recoveryCodes.length > 0 && ! confirming">-->
+<!--                    <div class="mt-4 max-w-xl text-sm text-gray-600">-->
+<!--                        <p class="font-semibold">-->
+<!--                            Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.-->
+<!--                        </p>-->
+<!--                    </div>-->
 
-                    <div class="grid gap-1 max-w-xl mt-4 px-4 py-4 font-mono text-sm bg-gray-100 rounded-lg">
-                        <div v-for="code in recoveryCodes" :key="code">
-                            {{ code }}
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--                    <div class="grid gap-1 max-w-xl mt-4 px-4 py-4 font-mono text-sm bg-gray-100 rounded-lg">-->
+<!--                        <div v-for="code in recoveryCodes" :key="code">-->
+<!--                            {{ code }}-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="mr-4 flex-shrink-0 mb-4">
             <div class="grid grid-cols-2 gap-4">
-                <div>
+<!--                <div>-->
                     <!-- <MyImageUploader :maxSize="8000" title="写真" :imgUrl="form.photo_url" v-model:imgFile="form.photo_file"/> -->
                     <MyImageUploader :maxSize="8000" title="写真" v-model:imgFile="form.photo_file"/>
-                </div>
+<!--                </div>-->
                 <!-- <div v-if="props.photo_url" class="py-2 px-6 w-full link-primary">
                     <span
                         @click="openFile(props.photo_url)"
