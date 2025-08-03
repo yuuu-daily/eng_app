@@ -10,6 +10,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import MyImageUploader from "@/Components/Commons/MyImageUploader.vue";
+import MyButtonGoBack from "@/Components/Commons/MyButtonGoBack.vue";
 
 const props = defineProps({
     // requiresConfirmation: Boolean,
@@ -326,7 +327,7 @@ const upd = () => {
                                :disabled="form.processing" @click="submit()">
                     保存
                 </PrimaryButton>
-                <MyButtonGoBack :target="route('post.index')"/>
+                <MyButtonGoBack :target="route('user.post')"/>
             </div>
         </template>
     </ActionSection>

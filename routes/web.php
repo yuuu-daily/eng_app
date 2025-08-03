@@ -33,6 +33,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     RouteHelper::setResourceRouteWithName('/admin/event', '\Admin\EventController');
     RouteHelper::setResourceRouteWithName('/user/post', '\User\PostController');
     RouteHelper::setResourceRouteWithName('/user/event', '\User\EventController');
+    RouteHelper::setResourceRouteWithName('/user/group', '\User\GroupController');
+    RouteHelper::setResourceRouteWithName('/user/project', '\User\ProjectController');
     RouteHelper::setResourceRouteWithName('/user/setting', '\User\UserController');
     // Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     //AWSで使うヤツなど
