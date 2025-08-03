@@ -167,7 +167,7 @@ function updateSelectedEndAt(val) {
                                :disabled="form.processing" @click="upd()">
                     保存
                 </PrimaryButton>
-                <MyButtonGoBack :target="route('user.event.index')"/>
+                <MyButtonGoBack :target="route('user.event.show', props.event.id)"/>
             </div>
         </div>
     </AppLayout>

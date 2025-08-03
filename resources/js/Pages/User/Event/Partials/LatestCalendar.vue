@@ -50,7 +50,7 @@ let calendarOptions = {
     eventClick: function(e) {
         const viewType = e.view.type;
         if (viewType === 'timeGridWeek' || viewType === 'timeGridDay' || viewType === 'dayGridMonth') {
-            router.visit(route('user.event.edit', e.event.id));
+            router.visit(route('user.event.show', e.event.id));
         }
     },
     eventTimeFormat: {
