@@ -39,6 +39,7 @@
         "@vuepic/vue-datepicker": "^11.0.2",
         "date-fns": "^4.1.0",
         "dayjs": "^1.11.13",
+        "video.js": "^8.23.3",
         "vue-select": "^4.0.0-beta.6",
         "vue3-flip-countdown": "^0.1.6"
     }

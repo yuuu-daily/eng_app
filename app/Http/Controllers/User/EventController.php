@@ -117,7 +117,13 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $event = Event::find($id);
+        $video = "https://yuuubucket.s3.ap-northeast-1.amazonaws.com/sample-10s.mp4";
+        return Inertia::render('User/Event/Show', [
+            'video' => $video,
+            'event' => $event,
+        ]);
     }
 
     /**
