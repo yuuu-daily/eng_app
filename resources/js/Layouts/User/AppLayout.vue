@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 import {
   Dialog,
@@ -27,19 +27,29 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 import {router, useForm, usePage} from '@inertiajs/vue3';
 
+
 const props = defineProps({
     title: String,
     photo_url: null
 });
+const currentPath = usePage().url;
 
-const navigation = [
-  { name: '記事一覧', href: '/post', icon: HomeIcon, current: true },
-  { name: 'グループ', href: '/post', icon: UsersIcon, current: false },
-  { name: 'プロジェクト', href: '#', icon: FolderIcon, current: false },
-  { name: 'イベント', href: '#', icon: CalendarIcon, current: false },
-  // { name: 'ナレッジ', href: '#', icon: DocumentDuplicateIcon, current: false },
-  // { name: 'レポート', href: '#', icon: ChartPieIcon, current: false },
-]
+// const navigation = [
+//   { name: '記事一覧', href: '/user/post', icon: HomeIcon, current: true },
+//   { name: 'グループ', href: '/post', icon: UsersIcon, current: false },
+//   { name: 'プロジェクト', href: '#', icon: FolderIcon, current: false },
+//   { name: 'イベント', href: '/user/event', icon: CalendarIcon, current: false },
+//   // { name: 'ナレッジ', href: '#', icon: DocumentDuplicateIcon, current: false },
+//   // { name: 'レポート', href: '#', icon: ChartPieIcon, current: false },
+// ]
+
+const navigation = computed(() => [
+    { name: '記事一覧', href: '/user/post', icon: HomeIcon, current: currentPath.startsWith('/user/post') },
+    { name: 'グループ', href: '/user/group', icon: UsersIcon, current: currentPath.startsWith('/user/group') },
+    { name: 'プロジェクト', href: '/user/project', icon: FolderIcon, current: currentPath.startsWith('/user/project') },
+    { name: 'イベント', href: '/user/event', icon: CalendarIcon, current: currentPath.startsWith('/user/event') },
+]);
+
 const teams = [
   { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
   { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
@@ -232,8 +242,8 @@ const logout = () => {
         </div>
       </div>
 
-      <main class="py-10 bg-yellow-50">
-        <div class="mx-auto max-w-7xl px-4 bg-yellow-50 sm:px-6 lg:px-8">
+      <main class="py-10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
             <main class="mx-auto max-w-screen-2xl px-6 py-0 lg:px-8 min-h-screen" style="min-height: calc(100vh - 153px)">
                 <slot />

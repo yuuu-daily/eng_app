@@ -81,7 +81,7 @@ body {
 }
 
 .my-btn-add {
-    @apply absolute -mt-14 right-8 cursor-pointer rounded bg-indigo-600 px-3 py-2 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
+    @apply mt-24 right-8 cursor-pointer rounded bg-indigo-600 px-3 py-2 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
 }
 
 .my-input-text {

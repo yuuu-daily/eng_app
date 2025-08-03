@@ -9,6 +9,16 @@ export const GRADE = [
     {id: '14', value: '中2'},
     {id: '15', value: '中3'},
 ];
+
+export const COLOR_TYPE = [
+    { id: 0, class: 'cat-0', label: 'デフォルト' },
+    { id: 1, class: 'cat-1', label: 'グリーン' },
+    { id: 2, class: 'cat-2', label: 'パープル' },
+    { id: 3, class: 'cat-3', label: 'レッド' },
+    { id: 4, class: 'cat-4', label: 'ブルー' },
+    { id: 5, class: 'cat-5', label: 'イエロー' },
+];
+
 export const ROLE_STUDENT = 0;
 export const ROLE_TEACHER = 9;
 export const ROLE_LECTURER = 99;
@@ -79,4 +89,5 @@ export default {
     ADDRESS_OPTIONS: ADDRESS_OPTIONS,
     JUKU_OPTIONS: JUKU_OPTIONS,
     LESSON_TIME: LESSON_TIME,
+    COLOR_TYPE: COLOR_TYPE,
 }
